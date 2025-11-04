@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تصميم لوجو - EzzatRadwan</title>
+
+    <!-- خط كايرو -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- ملف التنسيق -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- 🔷 الهيدر -->
+    <header class="top-bar">
+        <div class="brand">
+            <img src="photo2.png" alt="لوغو" class="logo" onerror="this.style.display='none'">
+            <span class="site-title">EzzatRadwan</span>
+        </div>
+
+        <!-- شريط الخدمات -->
+        <div class="services-label">
+            <a href="logo.html" class="service-link active">تصميم لوجو</a>
+            <span>·</span>
+            <a href="social.html" class="service-link">تصميم سوشيال ميديا</a>
+            <span>·</span>
+            <a href="video.html" class="service-link">تصميم فيديو</a>
+            <span>·</span>
+            <a href="web.html" class="service-link">تصميم مواقع</a>
+        </div>
+
+        <button class="side-btn header-toggle" aria-label="افتح القائمة" title="القائمة" aria-expanded="false">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </button>
+    </header>
+
+    <!-- 🔹 القائمة الجانبية -->
+    <nav class="side-panel" aria-hidden="true">
+        <ul class="panel-menu">
+            <li><a href="index.html">🏠 الرئيسية</a></li>
+            <li><a href="logo.html" class="active">🎨 تصميم لوجو</a></li>
+            <li><a href="#" data-action="show-contact">📞 اتصل بنا</a></li>
+        </ul>
+
+        <div class="panel-contact-details" aria-hidden="true" style="display:none;">
+            <button class="panel-back" type="button" data-action="back-menu" aria-label="العودة">← رجوع</button>
+            <h3 style="margin-bottom: 12px;">معلومات الاتصال</h3>
+
+            <a href="tel:+201009761159" class="contact-item">
+                <img src="images/phon.png" alt="هاتف">
+                <span><strong>هاتف:</strong> 01009761159</span>
+            </a>
+
+            <a href="https://wa.me/201040414035" target="_blank" rel="noopener" class="contact-item">
+                <img src="images/whatsapp.png" alt="واتس اب">
+                <span><strong>واتس اب:</strong> 01040414035</span>
+            </a>
+
+            <a href="https://www.facebook.com/share/1A1CZBmcVn/" target="_blank" rel="noopener" class="contact-item">
+                <img src="images/facebook.png" alt="فيس بوك">
+                <span><strong>فيس بوك</strong></span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="side-overlay" tabindex="-1"></div>
+
+    <!-- 🔶 المحتوى -->
+    <main class="main-area container">
+        <div class="service-container">
+
+            <h1>🎨 تصميم اللوجو الاحترافي</h1>
+            <p class="intro-text">
+                نساعدك على بناء هوية بصرية مميزة من خلال تصميم شعار احترافي يعكس شخصيتك التجارية.
+            </p>
+
+            <h2>🧾 تفاصيل الخدمة</h2>
+            <ul class="service-details">
+                <li>تصميم إبداعي بأحدث أدوات التصميم.</li>
+                <li>التسليم بأكثر من صيغة (PNG - JPG - PDF - AI).</li>
+                <li>ثلاث تعديلات مجانية على التصميم.</li>
+                <li>مدة التنفيذ: من 1 إلى 2 يوم عمل.</li>
+            </ul>
+
+            <!-- 📩 نموذج الطلب -->
+            <form id="logoForm" onsubmit="sendMail(event)" class="service-form">
+                <h2>📩 اطلب تصميمك الآن</h2>
+                <input type="text" id="name" placeholder="الاسم الكامل" required>
+                <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+                <input type="tel" id="phone" placeholder="رقم الهاتف">
+                <textarea id="message" placeholder="صف اللوجو الذي تريده..." rows="4"></textarea>
+                <button type="submit">إرسال الطلب</button>
+            </form>
+
+            <!-- ✅ المعرض أسفل الصفحة -->
+            <section class="gallery-section">
+                <h2>📸 معرض تصاميم اللوجو</h2>
+                <p>استعرض بعض أعمالنا السابقة في تصميم الشعارات الاحترافية:</p>
+
+                <div class="logo-gallery"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- نافذة تكبير الصور -->
+    <div class="lightbox" id="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-img" src="" alt="عرض الصورة">
+    </div>
+
+    <!-- 🧠 سكريبت -->
+    <script>
+       // توليد صور المعرض تلقائيًا
+const gallery = document.querySelector('.logo-gallery');
+
+for (let i = 1; i <= 29; i++) {
+    const card = document.createElement('div');
+    card.className = 'logo-card';
+    card.innerHTML = `<img src="photologo/1 (${i}).jpeg" alt="تصميم لوجو ${i}" loading="lazy">`;
+    gallery.appendChild(card);
+}
+for (let i = 1; i <= 7; i++) {
+    const card = document.createElement('div');
+    card.className = 'logo-card';
+    card.innerHTML = `<img src="photologo/1 (${i}).jpg" alt="تصميم لوجو ${i}" loading="lazy">`;
+    gallery.appendChild(card);
+}
+
+// تأثير التكبير (Lightbox)
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.querySelector('.lightbox-img');
+const closeBtn = document.querySelector('.close');
+
+document.addEventListener('click', e => {
+    if (e.target.matches('.logo-card img')) {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = e.target.src;
+    } else if (e.target === lightbox || e.target === closeBtn) {
+        lightbox.style.display = 'none';
+    }
+});
+
+// القائمة الجانبية
+(function(){
+    const btn = document.querySelector('.side-btn');
+    const panel = document.querySelector('.side-panel');
+    const overlay = document.querySelector('.side-overlay');
+    const panelMenu = panel.querySelector('.panel-menu');
+    const contactDetails = panel.querySelector('.panel-contact-details');
+    const showContact = panel.querySelector('[data-action="show-contact"]');
+    const backBtn = panel.querySelector('[data-action="back-menu"]');
+
+    function openPanel(){
+        panel.classList.add('open');
+        overlay.classList.add('visible');
+        panel.setAttribute('aria-hidden','false');
+        btn.setAttribute('aria-expanded','true');
+        panelMenu.style.display = '';
+        contactDetails.style.display = 'none';
+    }
+    function closePanel(){
+        panel.classList.remove('open');
+        overlay.classList.remove('visible');
+        panel.setAttribute('aria-hidden','true');
+        btn.setAttribute('aria-expanded','false');
+    }
+
+    btn.addEventListener('click', ()=> panel.classList.contains('open') ? closePanel() : openPanel());
+    overlay.addEventListener('click', closePanel);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+    if (showContact) {
+        showContact.addEventListener('click', function(e){
+            e.preventDefault();
+            panelMenu.style.display = 'none';
+            contactDetails.style.display = 'flex';
+        });
+    }
+
+    if (backBtn) {
+        backBtn.addEventListener('click', function(){
+            contactDetails.style.display = 'none';
+            panelMenu.style.display = '';
+        });
+    }
+})();
+
+// إرسال الطلب عبر mailto
+function sendMail(event){
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const message = document.getElementById('message').value;
+
+    const subject = encodeURIComponent("طلب تصميم لوجو");
+    const body = encodeURIComponent(
+        "الاسم: " + name + "\n" +
+        "البريد الإلكتروني: " + email + "\n" +
+        "رقم الهاتف: " + phone + "\n" +
+        "تفاصيل اللوجو: " + message
+    );
+
+    window.location.href = `mailto:zizo.radwan33@gmail.com?subject=${subject}&body=${body}`;
+}
+    </script>
+
+</body>
+</html>

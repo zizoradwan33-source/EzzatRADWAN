@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EzzatRadwan</title>
+
+    <!-- خط كايرو فقط -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- ربط ملف التنسيق -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <header class="top-bar">
+        <div class="brand">
+            <img src="photo2.png" alt="لوغو" class="logo" onerror="this.style.display='none'">
+            <span class="site-title">EzzatRadwan</span>
+        </div>
+
+        <!-- شريط الخدمات -->
+        <div class="services-label">
+            <a href="logo.html" class="service-link">تصميم لوجو</a>
+            <span>·</span>
+            <a href="social.html" class="service-link">تصميم سوشيال ميديا</a>
+            <span>·</span>
+            <a href="video.html" class="service-link">تصميم فيديو</a>
+            <span>·</span>
+            <a href="web.html" class="service-link">تصميم مواقع</a>
+        </div>
+
+        <button class="side-btn header-toggle" aria-label="افتح القائمة" title="القائمة" aria-expanded="false">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </button>
+    </header>
+
+    <!-- لوحة جانبية -->
+    <nav class="side-panel" aria-hidden="true">
+        <ul class="panel-menu">
+            <li><a href="#home" data-action="nav">الرئيسية</a></li>
+            <li><a href="#about" data-action="nav">من أنا</a></li>
+            <li><a href="logo.html">تصميم لوجو</a></li>
+            <li><a href="social.html">تصميم سوشيال ميديا</a></li>
+            <li><a href="video.html">تصميم فيديو</a></li>
+            <li><a href="web.html">تصميم مواقع</a></li>
+            <li><a href="#" data-action="show-contact">اتصل بنا</a></li>
+        </ul>
+
+        <div class="panel-contact-details" aria-hidden="true" style="display:none;">
+            <button class="panel-back" type="button" data-action="back-menu" aria-label="العودة">← رجوع</button>
+            <h3 style="margin-bottom: 12px;">معلومات الاتصال</h3>
+
+            <a href="tel:+201009761159" class="contact-item">
+                <img src="images/phon.png" alt="هاتف">
+                <span><strong>هاتف:</strong> 01009761159</span>
+            </a>
+
+            <a href="https://wa.me/201040414035" target="_blank" rel="noopener" class="contact-item">
+                <img src="images/whatsapp.png" alt="واتس اب">
+                <span><strong>واتس اب:</strong> 01040414035</span>
+            </a>
+
+            <a href="https://www.facebook.com/share/1A1CZBmcVn/" target="_blank" rel="noopener" class="contact-item">
+                <img src="images/facebook.png" alt="فيس بوك">
+                <span><strong>فيس بوك</strong></span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="side-overlay" tabindex="-1"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-area container" id="home">
+
+        <section class="welcome-section">
+            <h1>مرحباً بكم في صفحتي المتواضعة</h1>
+        </section>
+
+        <div class="hero">
+            <img src="images/photo.png" alt="صورة ترحيبية" onerror="this.onerror=null; this.src='photo.png';" />
+        </div>
+
+       <section class="about" id="about">
+            <h2>من أنا</h2>
+
+            <p>
+                أنا <strong>عزت رضوان</strong> — مصمم جرافيك، ومطور واجهات ويب، 
+                ومصمم فيديوهات احترافية باستخدام تقنيات <strong>الذكاء الاصطناعي</strong>.  
+                أعشق تحويل الأفكار إلى تصاميم واقعية جذابة تجمع بين البساطة والاحتراف.
+            </p>
+
+            <ul class="about-list">
+                <li><strong>الخبرة:</strong> تصميم لوجوهات وشعارات، إدارة العلامات التجارية، تصميم واجهات المستخدم، إنتاج فيديوهات احترافية.</li>
+                <li><strong>المهارات:</strong> Photoshop · Illustrator · After Effects · Premiere Pro · HTML · CSS · JavaScript · أدوات الذكاء الاصطناعي في التصميم والفيديو.</li>
+                <li><strong>الموقع:</strong> القاهرة، مصر</li>
+                <li><strong>العمل الحالي:</strong> مصمم جرافيك وفيديوهات مستقلاً عبر الإنترنت، أقدم حلول تصميم ذكية ومبتكرة للعملاء.</li>
+            </ul>
+
+            <p style="margin-top: 20px;">
+                <a href="https://wa.me/201040414035" target="_blank" class="contact-btn">💬 تواصل معي على واتساب</a>
+            </p>
+        </section>
+
+    </main>
+
+    <script>
+        (function(){
+            const btn = document.querySelector('.side-btn');
+            const panel = document.querySelector('.side-panel');
+            const overlay = document.querySelector('.side-overlay');
+            const panelMenu = panel.querySelector('.panel-menu');
+            const contactDetails = panel.querySelector('.panel-contact-details');
+            const showContact = panel.querySelector('[data-action="show-contact"]');
+            const backBtn = panel.querySelector('[data-action="back-menu"]');
+
+            function openPanel(){
+                panel.classList.add('open');
+                overlay.classList.add('visible');
+                panel.setAttribute('aria-hidden','false');
+                btn.setAttribute('aria-expanded','true');
+                panelMenu.style.display = '';
+                contactDetails.style.display = 'none';
+                contactDetails.setAttribute('aria-hidden','true');
+            }
+            function closePanel(){
+                panel.classList.remove('open');
+                overlay.classList.remove('visible');
+                panel.setAttribute('aria-hidden','true');
+                btn.setAttribute('aria-expanded','false');
+            }
+
+            btn.addEventListener('click', ()=> panel.classList.contains('open') ? closePanel() : openPanel());
+            overlay.addEventListener('click', closePanel);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+            if (showContact) {
+                showContact.addEventListener('click', function(e){
+                    e.preventDefault();
+                    panelMenu.style.display = 'none';
+                    contactDetails.style.display = 'flex';
+                    contactDetails.setAttribute('aria-hidden','false');
+                    panel.classList.add('open');
+                    overlay.classList.add('visible');
+                    panel.setAttribute('aria-hidden','false');
+                    btn.setAttribute('aria-expanded','true');
+                });
+            }
+
+            if (backBtn) {
+                backBtn.addEventListener('click', function(){
+                    contactDetails.style.display = 'none';
+                    contactDetails.setAttribute('aria-hidden','true');
+                    panelMenu.style.display = '';
+                });
+            }
+        })();
+    </script>
+
+</body>
+</html>

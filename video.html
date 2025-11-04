@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تصميم فيديو - EzzatRadwan</title>
+
+    <!-- خط كايرو -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- نفس ملف التنسيق -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- 🔷 الهيدر الأزرق -->
+    <header class="top-bar">
+        <div class="brand">
+            <img src="photo2.png" alt="لوغو" class="logo" onerror="this.style.display='none'">
+            <span class="site-title">EzzatRadwan</span>
+        </div>
+
+        <!-- شريط الخدمات -->
+        <div class="services-label">
+            <a href="logo.html" class="service-link">تصميم لوجو</a>
+            <span>·</span>
+            <a href="social.html" class="service-link">تصميم سوشيال ميديا</a>
+            <span>·</span>
+            <a href="video.html" class="service-link active">تصميم فيديو</a>
+            <span>·</span>
+            <a href="web.html" class="service-link">تصميم مواقع</a>
+        </div>
+
+        <button class="side-btn header-toggle" aria-label="افتح القائمة" title="القائمة" aria-expanded="false">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </button>
+    </header>
+
+    <!-- 🔹 القائمة الجانبية -->
+    <nav class="side-panel" aria-hidden="true">
+        <ul class="panel-menu">
+            <li><a href="index.html">🏠 الرئيسية</a></li>
+            <li><a href="shams.mp4" class="active">🎬 تصميم فيديو</a></li>
+            <li><a href="#" data-action="show-contact">📞 اتصل بنا</a></li>
+        </ul>
+
+        <div class="panel-contact-details" aria-hidden="true" style="display:none;">
+            <button class="panel-back" type="button" data-action="back-menu" aria-label="العودة">← رجوع</button>
+            <h3 style="margin-bottom: 12px;">معلومات الاتصال</h3>
+
+            <a href="tel:+201009761159" class="contact-item">
+                <img src="images/phon.png" alt="هاتف">
+                <span><strong>هاتف:</strong> 01009761159</span>
+            </a>
+
+            <a href="https://wa.me/201040414035" target="_blank" rel="noopener" class="contact-item">
+                <img src="images/whatsapp.png" alt="واتس اب">
+                <span><strong>واتس اب:</strong> 01040414035</span>
+            </a>
+
+            <a href="https://www.facebook.com/share/1A1CZBmcVn/" target="_blank" rel="noopener" class="contact-item">
+                <img src="images/facebook.png" alt="فيس بوك">
+                <span><strong>فيس بوك</strong></span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="side-overlay" tabindex="-1"></div>
+
+    <!-- 🔶 محتوى الصفحة -->
+    <main class="main-area container">
+        <div class="service-container">
+
+            <h1>🎬 تصميم فيديو احترافي</h1>
+            <p class="intro-text">
+                نقدم خدمة تصميم وتحرير الفيديوهات الإبداعية لإظهار علامتك التجارية بأفضل شكل وجذب جمهورك المستهدف.
+            </p>
+
+            <h2>نموذج من أعمال الفيديو</h2>
+            <video src="shams.mp4" class="service-image" controls poster="video-thumb.png">
+                متصفحك لا يدعم تشغيل الفيديو.
+            </video>
+
+            <div class="service-details">
+                <h2>🧾 تفاصيل الخدمة</h2>
+                <ul>
+                    <li>مونتاج فيديو احترافي بجودة عالية Full HD أو 4K.</li>
+                    <li>فديوهات بالزكاء الاصطناعي باستخدام كل الادوات.</li>
+                    <li>إضافة مؤثرات صوتية ومرئية حديثة.</li>
+                    <li>دمج الشعارات والنصوص والهوية البصرية الخاصة بك.</li>
+                    <li>مدة التنفيذ: من 2 إلى 4 أيام عمل حسب مدة الفيديو.</li>
+                </ul>
+            </div>
+
+            <form class="service-form">
+                <h2>📩 اطلب فيديوك الآن</h2>
+                <input type="text" placeholder="الاسم الكامل" required>
+                <input type="email" placeholder="البريد الإلكتروني" required>
+                <input type="tel" placeholder="رقم الهاتف">
+                <textarea placeholder="صف نوع الفيديو الذي تريده (إعلاني - موشن جرافيك - توضيحي...)" rows="4"></textarea>
+                <button type="submit">إرسال الطلب</button>
+            </form>
+
+            <!-- ✅ معرض الفيديوهات -->
+            <h2>🎞️ معرض الفيديوهات السابقة</h2>
+            <div class="video-gallery">
+                <video src="video/1 (1).mp4" muted></video>
+                <video src="video/1 (2).mp4" muted></video>
+                <video src="video/1 (3).mp4" muted></video>
+                <video src="video/1 (4).mp4" muted></video>
+                <video src="video/1 (5).mp4" muted></video>
+                <video src="video/1 (6).mp4" muted></video>
+                <video src="video/1 (7).mp4" muted></video>
+
+                <!-- زد أو انقص الفيديوهات حسب الملفات عندك -->
+            </div>
+
+            <!-- 🖼️ نافذة لعرض الفيديو بالحجم الكبير -->
+            <div id="videoModal" class="modal">
+                <span class="close">&times;</span>
+                <video class="modal-content" id="modalVideo" controls></video>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // كود القائمة الجانبية
+        (function(){
+            const btn = document.querySelector('.side-btn');
+            const panel = document.querySelector('.side-panel');
+            const overlay = document.querySelector('.side-overlay');
+            const panelMenu = panel.querySelector('.panel-menu');
+            const contactDetails = panel.querySelector('.panel-contact-details');
+            const showContact = panel.querySelector('[data-action="show-contact"]');
+            const backBtn = panel.querySelector('[data-action="back-menu"]');
+
+            function openPanel(){
+                panel.classList.add('open');
+                overlay.classList.add('visible');
+                panel.setAttribute('aria-hidden','false');
+                btn.setAttribute('aria-expanded','true');
+                panelMenu.style.display = '';
+                contactDetails.style.display = 'none';
+                contactDetails.setAttribute('aria-hidden','true');
+            }
+            function closePanel(){
+                panel.classList.remove('open');
+                overlay.classList.remove('visible');
+                panel.setAttribute('aria-hidden','true');
+                btn.setAttribute('aria-expanded','false');
+            }
+
+            btn.addEventListener('click', ()=> panel.classList.contains('open') ? closePanel() : openPanel());
+            overlay.addEventListener('click', closePanel);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+            if (showContact) {
+                showContact.addEventListener('click', function(e){
+                    e.preventDefault();
+                    panelMenu.style.display = 'none';
+                    contactDetails.style.display = 'flex';
+                    contactDetails.setAttribute('aria-hidden','false');
+                    panel.classList.add('open');
+                    overlay.classList.add('visible');
+                    panel.setAttribute('aria-hidden','false');
+                    btn.setAttribute('aria-expanded','true');
+                });
+            }
+
+            if (backBtn) {
+                backBtn.addEventListener('click', function(){
+                    contactDetails.style.display = 'none';
+                    contactDetails.setAttribute('aria-hidden','true');
+                    panelMenu.style.display = '';
+                });
+            }
+        })();
+
+        // ✅ كود عرض الفيديو في نافذة منبثقة
+        const modal = document.getElementById("videoModal");
+        const modalVideo = document.getElementById("modalVideo");
+        const closeBtn = document.querySelector(".modal .close");
+
+        document.querySelectorAll(".video-gallery video").forEach(video => {
+            video.addEventListener("click", () => {
+                modal.style.display = "block";
+                modalVideo.src = video.src;
+            });
+        });
+
+        closeBtn.onclick = () => {
+            modal.style.display = "none";
+            modalVideo.pause();
+        };
+
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+                modalVideo.pause();
+            }
+        };
+    </script>
+
+</body>
+</html>

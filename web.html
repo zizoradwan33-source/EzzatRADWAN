@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تصميم مواقع - EzzatRadwan</title>
+
+    <!-- خط كايرو -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- نفس ملف التنسيق المستخدم في الصفحة الرئيسية -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- 🔷 الهيدر الأزرق -->
+    <header class="top-bar">
+        <div class="brand">
+            <img src="photo2.png" alt="لوغو" class="logo" onerror="this.style.display='none'">
+            <span class="site-title">EzzatRadwan</span>
+        </div>
+
+        <!-- شريط الخدمات -->
+        <div class="services-label">
+            <a href="logo.html" class="service-link">تصميم لوجو</a>
+            <span>·</span>
+            <a href="social.html" class="service-link">تصميم سوشيال ميديا</a>
+            <span>·</span>
+            <a href="video.html" class="service-link">تصميم فيديو</a>
+            <span>·</span>
+            <a href="web.html" class="service-link active">تصميم مواقع</a>
+        </div>
+
+        <button class="side-btn header-toggle" aria-label="افتح القائمة" title="القائمة" aria-expanded="false">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </button>
+    </header>
+
+    <!-- 🔹 القائمة الجانبية -->
+    <nav class="side-panel" aria-hidden="true">
+        <ul class="panel-menu">
+            <li><a href="index.html">🏠 الرئيسية</a></li>
+            <li><a href="web.html" class="active">💻 تصميم مواقع</a></li>
+            <li><a href="#" data-action="show-contact">📞 اتصل بنا</a></li>
+        </ul>
+
+        <div class="panel-contact-details" aria-hidden="true" style="display:none;">
+            <button class="panel-back" type="button" data-action="back-menu" aria-label="العودة">← رجوع</button>
+            <h3 style="margin-bottom: 12px;">معلومات الاتصال</h3>
+
+            <a href="tel:+201009761159" class="contact-item">
+                <img src="images/phon.png" alt="هاتف">
+                <span><strong>هاتف:</strong> 01009761159</span>
+            </a>
+
+            <a href="https://wa.me/201040414035" target="_blank" rel="noopener" class="contact-item">
+                <img src="images/whatsapp.png" alt="واتس اب">
+                <span><strong>واتس اب:</strong> 01040414035</span>
+            </a>
+
+            <a href="https://www.facebook.com/share/1A1CZBmcVn/" target="_blank" rel="noopener" class="contact-item">
+                <img src="images/facebook.png" alt="فيس بوك">
+                <span><strong>فيس بوك</strong></span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="side-overlay" tabindex="-1"></div>
+
+    <!-- 🔶 محتوى الصفحة -->
+    <main class="main-area container">
+        <div class="service-container">
+
+            <h1>💻 تصميم المواقع الاحترافية</h1>
+            <p class="intro-text">
+                نقدم خدمات تصميم مواقع حديثة وسريعة الاستجابة تعكس هوية عملك وتساعدك على جذب عملاء جدد.
+            </p>
+
+            <h2>🧾 تفاصيل الخدمة</h2>
+            <div class="service-details">
+                <ul>
+                    <li>تصميم موقع متكامل بتجربة مستخدم سهلة وسريعة.</li>
+                    <li>متجاوب مع جميع الأجهزة (كمبيوتر - جوال - تابلت).</li>
+                    <li>تحسين لمحركات البحث (SEO) لظهور موقعك في النتائج الأولى.</li>
+                    <li>ربط الموقع بوسائل التواصل الاجتماعي والبريد الإلكتروني.</li>
+                    <li>مدة التنفيذ: من 3 إلى 5 أيام عمل حسب المتطلبات.</li>
+                </ul>
+            </div>
+
+            <form class="service-form">
+                <h2>📩 اطلب موقعك الآن</h2>
+                <input type="text" placeholder="الاسم الكامل" required>
+                <input type="email" placeholder="البريد الإلكتروني" required>
+                <input type="tel" placeholder="رقم الهاتف">
+                <textarea placeholder="صف نوع الموقع الذي تريده (متجر - شخصي - شركة...)" rows="4"></textarea>
+                <button type="submit">إرسال الطلب</button>
+            </form>
+
+        </div>
+    </main>
+
+    <script>
+        // كود القائمة الجانبية (نفسه من الصفحات الأخرى)
+        (function(){
+            const btn = document.querySelector('.side-btn');
+            const panel = document.querySelector('.side-panel');
+            const overlay = document.querySelector('.side-overlay');
+            const panelMenu = panel.querySelector('.panel-menu');
+            const contactDetails = panel.querySelector('.panel-contact-details');
+            const showContact = panel.querySelector('[data-action="show-contact"]');
+            const backBtn = panel.querySelector('[data-action="back-menu"]');
+
+            function openPanel(){
+                panel.classList.add('open');
+                overlay.classList.add('visible');
+                panel.setAttribute('aria-hidden','false');
+                btn.setAttribute('aria-expanded','true');
+                panelMenu.style.display = '';
+                contactDetails.style.display = 'none';
+                contactDetails.setAttribute('aria-hidden','true');
+            }
+            function closePanel(){
+                panel.classList.remove('open');
+                overlay.classList.remove('visible');
+                panel.setAttribute('aria-hidden','true');
+                btn.setAttribute('aria-expanded','false');
+            }
+
+            btn.addEventListener('click', ()=> panel.classList.contains('open') ? closePanel() : openPanel());
+            overlay.addEventListener('click', closePanel);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+            if (showContact) {
+                showContact.addEventListener('click', function(e){
+                    e.preventDefault();
+                    panelMenu.style.display = 'none';
+                    contactDetails.style.display = 'flex';
+                    contactDetails.setAttribute('aria-hidden','false');
+                    panel.classList.add('open');
+                    overlay.classList.add('visible');
+                    panel.setAttribute('aria-hidden','false');
+                    btn.setAttribute('aria-expanded','true');
+                });
+            }
+
+            if (backBtn) {
+                backBtn.addEventListener('click', function(){
+                    contactDetails.style.display = 'none';
+                    contactDetails.setAttribute('aria-hidden','true');
+                    panelMenu.style.display = '';
+                });
+            }
+        })();
+    </script>
+
+</body>
+</html>
