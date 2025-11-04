@@ -1,6 +1,9 @@
 /* ======================
    الإعدادات العامة
 ====================== */
+html, body {
+    overflow-x: hidden; /* يمنع أي تأثير للوحة الجانبية على التخطيط */
+}
 body {
     font-family: 'Cairo', sans-serif;
     margin: 0;
@@ -58,6 +61,7 @@ body::before {
     flex-direction: column;
     gap: 5px;
     padding: 5px;
+    z-index: 1101; /* فوق اللوحة */
 }
 .side-btn .dot {
     width: 6px;
@@ -119,23 +123,33 @@ body::before {
 }
 
 /* ======================
-   القائمة الجانبية
+   القائمة الجانبية (مخفيه افتراضياً من دون التأثير على التخطيط)
+   نستخدم transform + visibility + pointer-events
 ====================== */
 .side-panel {
     position: fixed;
     top: 0;
     bottom: 0;
-    right: -280px;
+    right: 0;               /* ثابت عند الحافة */
     width: 280px;
     background: rgba(255,255,255,0.97);
     box-shadow: -4px 0 15px rgba(0,0,0,0.25);
     padding: 25px;
-    transition: right 0.35s ease;
-    z-index: 1000;
+    transform: translateX(100%);   /* مخفية خارح الشاشة */
+    transition: transform 0.35s cubic-bezier(.2,.9,.2,1), opacity 0.25s ease;
+    z-index: 1100;
     border-radius: 20px 0 0 20px;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
 }
+
+/* عندما تفتح: تظهر بلا أن تؤثر على التخطيط قبل الفتح */
 .side-panel.open {
-    right: 0;
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .panel-menu {
@@ -158,6 +172,28 @@ body::before {
 .panel-menu a:hover {
     background-color: #e8f3ff;
     transform: translateX(3px);
+}
+
+/* ======================
+   غطاء الشاشة (overlay) مخفي افتراضياً ويظهر فقط عند الحاجة
+====================== */
+.side-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1050;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+/* عند إظهار الغطاء */
+.side-overlay.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition-delay: 0s;
 }
 
 /* ======================
@@ -409,73 +445,6 @@ body::before {
         padding: 120px 15px 50px;
     }
 }
-/* ======================
-   معرض الفيديوهات
-====================== */
-.video-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 18px;
-    margin: 40px auto;
-    max-width: 900px;
-}
-
-.video-gallery video {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.video-gallery video:hover {
-    transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-}
-
-/* ======================
-   نافذة تكبير الفيديوهات
-====================== */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 3000;
-    padding: 40px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.9);
-}
-
-.modal-content {
-    margin: auto;
-    display: block;
-    max-width: 85%;
-    max-height: 85%;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(255,255,255,0.25);
-}
-
-.modal .close {
-    position: absolute;
-    top: 20px;
-    left: 25px;
-    color: #fff;
-    font-size: 3rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.modal .close:hover {
-    color: #f39c12;
-}
-
-/* تحسين الموبايل */
 @media (max-width: 600px) {
     .video-gallery video {
         height: 100px;
@@ -488,3 +457,659 @@ body::before {
         font-size: 2.3rem;
     }
 }
+
+/* =========================
+   إضافات لتحسين التوافق مع الهاتف
+   و إخفاء اللوحة الجانبية على الشاشات الصغيرة
+========================= */
+@media (max-width: 480px) {
+
+    /* حجم خط عام أصغر */
+    html, body {
+        font-size: 14px;
+    }
+
+    /* هيدر أصغر ومبسّط */
+    .top-bar {
+        height: 56px;
+        padding: 8px 12px;
+        border-radius: 0 0 12px 12px;
+        gap: 8px;
+    }
+    .logo {
+        width: 36px;
+        height: 36px;
+    }
+    .site-title {
+        font-size: 1rem;
+    }
+
+    /* زر القائمه أصغر ومساحة النقر محسنة */
+    .side-btn, .top-bar .side-btn {
+        width: 40px;
+        height: 40px;
+        padding: 6px;
+        gap: 4px;
+    }
+    .side-btn .dot { width: 5px; height: 5px; }
+
+    /* الحاوية الرئيسية أصغر وحواف أقل */
+    .service-container,
+    .container {
+        padding: 90px 12px 70px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+
+    /* صورة الهيرو أصغر وأقل تباعد */
+    .hero img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin: 4px auto;
+    }
+
+    /* عني */
+    .about h1 { font-size: 20px; }
+    .about h2 { font-size: 16px; }
+    .about p, .about-list li { font-size: 14px; text-align: right; }
+
+    /* أزرار ونصوص أصغر */
+    .service-form input,
+    .service-form textarea,
+    .panel-menu a {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    /* إخفاء اللوحة الجانبية والغطاء على الشاشات الصغيرة */
+    .side-panel,
+    .side-overlay {
+        display: none !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        right: auto !important;
+    }
+
+    /* لعرض معلومات الاتصال على الموبايل داخل المحتوى إذا رغبت */
+    .mobile-contact {
+        display: block;
+        margin: 14px 8px 30px;
+        text-align: center;
+        background: rgba(255,255,255,0.95);
+        color: #333;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 700;
+    }
+}
+
+/* تصغيرات متوسطة الشاشات */
+@media (max-width: 768px) {
+    .service-container, .container { padding: 100px 14px 80px; }
+    .site-title { font-size: 1.05rem; }
+    .panel-menu a { font-size: 1rem; }
+}
+
+/* ======================
+   نهاية الملف
+====================== */
+```// filepath: c:\Users\workstation\Desktop\my_website\style.css
+/* ======================
+   الإعدادات العامة
+====================== */
+html, body {
+    overflow-x: hidden; /* يمنع أي تأثير للوحة الجانبية على التخطيط */
+}
+body {
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    color: #fff;
+    line-height: 1.8;
+    text-align: center;
+    background: url('zizo.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    font-size: 18px;
+    position: relative;
+    z-index: 0;
+    transition: all 0.3s ease;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.55);
+    z-index: -1;
+    transition: background 0.3s ease;
+}
+
+/* ======================
+   الشريط العلوي (Header)
+====================== */
+.top-bar {
+    background: rgba(52, 152, 219, 0.98);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    flex-wrap: wrap;
+    gap: 12px;
+    border-radius: 0 0 25px 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 999;
+    backdrop-filter: blur(6px);
+}
+
+/* زر القائمة على الشمال */
+.side-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    z-index: 1101; /* فوق اللوحة */
+}
+.side-btn .dot {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+}
+
+/* اللوجو على اليمين */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+}
+
+.site-title {
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: #fff;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    letter-spacing: 0.5px;
+}
+
+/* الخدمات بجانب اللوجو */
+.services-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-weight: 700;
+    font-size: 1rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    margin-right: 20px;
+}
+
+.service-link {
+    color: white;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+.service-link:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+.service-link.active {
+    background: #fff;
+    color: #3498db;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+/* ======================
+   القائمة الجانبية (مخفيه افتراضياً من دون التأثير على التخطيط)
+   نستخدم transform + visibility + pointer-events
+====================== */
+.side-panel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;               /* ثابت عند الحافة */
+    width: 280px;
+    background: rgba(255,255,255,0.97);
+    box-shadow: -4px 0 15px rgba(0,0,0,0.25);
+    padding: 25px;
+    transform: translateX(100%);   /* مخفية خارح الشاشة */
+    transition: transform 0.35s cubic-bezier(.2,.9,.2,1), opacity 0.25s ease;
+    z-index: 1100;
+    border-radius: 20px 0 0 20px;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* عندما تفتح: تظهر بلا أن تؤثر على التخطيط قبل الفتح */
+.side-panel.open {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.panel-menu {
+    list-style: none;
+    padding: 0;
+}
+.panel-menu li {
+    margin-bottom: 15px;
+}
+.panel-menu a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px 14px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+.panel-menu a:hover {
+    background-color: #e8f3ff;
+    transform: translateX(3px);
+}
+
+/* ======================
+   غطاء الشاشة (overlay) مخفي افتراضياً ويظهر فقط عند الحاجة
+====================== */
+.side-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1050;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+/* عند إظهار الغطاء */
+.side-overlay.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition-delay: 0s;
+}
+
+/* ======================
+   تنسيق اتصل بنا في اللوحة الجانبية
+====================== */
+.panel-contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 15px;
+    font-size: 1rem;
+}
+
+.panel-contact-details h3 {
+    font-size: 1.3rem;
+    color: #3498db;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #3498db;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.panel-contact-details .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #333;
+}
+
+.panel-contact-details .contact-item img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.panel-contact-details .contact-item:hover {
+    background: rgba(52, 152, 219, 0.2);
+}
+
+.panel-back {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    margin-bottom: 15px;
+    transition: background 0.3s ease;
+}
+
+.panel-back:hover {
+    background: #2178c1;
+}
+
+/* ======================
+   الصفحة والخدمات
+====================== */
+.service-container {
+    max-width: 1000px;
+    background: transparent;
+    padding: 120px 25px 50px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.service-container h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 12px rgba(0,0,0,0.7);
+}
+
+.service-container h2 {
+    color: #f9f9f9;
+    margin-top: 25px;
+    font-size: 1.8rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+}
+
+.service-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    text-align: right;
+    direction: rtl;
+    max-width: 720px;
+}
+.service-container li {
+    background: rgba(0,0,0,0.35);
+    margin-bottom: 10px;
+    padding: 14px 20px;
+    border-radius: 15px;
+    font-size: 1.15rem;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    transition: all 0.3s ease;
+}
+.service-container li:hover {
+    transform: translateY(-3px);
+    background: rgba(0,0,0,0.45);
+}
+
+/* نموذج الطلب */
+.service-form {
+    margin-top: 40px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.service-form h2 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+}
+.service-form input,
+.service-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 14px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    background: rgba(255,255,255,0.95);
+    color: #333;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+.service-form input:focus,
+.service-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(52,152,219,0.7);
+}
+
+.service-form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.15rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+.service-form button:hover {
+    background-color: #2178c1;
+    transform: translateY(-3px);
+}
+
+/* ======================
+   معرض الصور
+====================== */
+.logo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin: 50px auto;
+    max-width: 1000px;
+}
+.logo-card {
+    background: rgba(0,0,0,0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.logo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 9px 25px rgba(0,0,0,0.45);
+}
+.logo-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: #ffffff;
+}
+.logo-caption {
+    font-size: 1rem;
+    color: #fff;
+    padding: 10px;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+}
+
+/* ======================
+   نافذة تكبير الصور
+====================== */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 25px;
+}
+.lightbox-img {
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
+    background-color: #fff;
+}
+.lightbox .close {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    color: white;
+    font-size: 2.8rem;
+    cursor: pointer;
+}
+.lightbox .close:hover {
+    color: #74ebd5;
+}
+
+/* ======================
+   تحسين الموبايل
+====================== */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+    .top-bar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px 15px;
+        height: auto;
+        gap: 10px;
+    }
+    .logo {
+        width: 42px;
+        height: 42px;
+    }
+    .site-title {
+        font-size: 1.2rem;
+    }
+    .service-container {
+        padding: 120px 15px 50px;
+    }
+}
+@media (max-width: 600px) {
+    .video-gallery video {
+        height: 100px;
+    }
+    .modal-content {
+        max-width: 95%;
+        max-height: 70%;
+    }
+    .modal .close {
+        font-size: 2.3rem;
+    }
+}
+
+/* =========================
+   إضافات لتحسين التوافق مع الهاتف
+   و إخفاء اللوحة الجانبية على الشاشات الصغيرة
+========================= */
+@media (max-width: 480px) {
+
+    /* حجم خط عام أصغر */
+    html, body {
+        font-size: 14px;
+    }
+
+    /* هيدر أصغر ومبسّط */
+    .top-bar {
+        height: 56px;
+        padding: 8px 12px;
+        border-radius: 0 0 12px 12px;
+        gap: 8px;
+    }
+    .logo {
+        width: 36px;
+        height: 36px;
+    }
+    .site-title {
+        font-size: 1rem;
+    }
+
+    /* زر القائمه أصغر ومساحة النقر محسنة */
+    .side-btn, .top-bar .side-btn {
+        width: 40px;
+        height: 40px;
+        padding: 6px;
+        gap: 4px;
+    }
+    .side-btn .dot { width: 5px; height: 5px; }
+
+    /* الحاوية الرئيسية أصغر وحواف أقل */
+    .service-container,
+    .container {
+        padding: 90px 12px 70px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+
+    /* صورة الهيرو أصغر وأقل تباعد */
+    .hero img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin: 4px auto;
+    }
+
+    /* عني */
+    .about h1 { font-size: 20px; }
+    .about h2 { font-size: 16px; }
+    .about p, .about-list li { font-size: 14px; text-align: right; }
+
+    /* أزرار ونصوص أصغر */
+    .service-form input,
+    .service-form textarea,
+    .panel-menu a {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    /* إخفاء اللوحة الجانبية والغطاء على الشاشات الصغيرة */
+    .side-panel,
+    .side-overlay {
+        display: none !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        right: auto !important;
+    }
+
+    /* لعرض معلومات الاتصال على الموبايل داخل المحتوى إذا رغبت */
+    .mobile-contact {
+        display: block;
+        margin: 14px 8px 30px;
+        text-align: center;
+        background: rgba(255,255,255,0.95);
+        color: #333;
+        padding: 12px;
+        border-radius: 10px;
+        font-weight: 700;
+    }
+}
+
+/* تصغيرات متوسطة الشاشات */
+@media (max-width: 768px) {
+    .service-container, .container { padding: 100px 14px 80px; }
+    .site-title { font-size: 1.05rem; }
+    .panel-menu a { font-size: 1rem; }
+}
+
+/* ======================
+   نهاية الملف
+====================== */
